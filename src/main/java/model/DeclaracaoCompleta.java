@@ -1,0 +1,82 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.RecursiveTask;
+
+public class DeclaracaoCompleta extends Declaracao {
+    private final static double LIMITE_ISENCAO = 22_847.88;
+    private final static double[] ALIQUOTAS = {0.075, 0.15, 0.225, 0.275};
+    private final static double[][] FAIXAS = {
+            {LIMITE_ISENCAO, 33_919.92},
+            {33_919.93, 45_012.72},
+            {45_012.73, 55_976.16},
+            {55_976.17, Double.MAX_VALUE}
+    };
+    private final static double[] ACUMULADO = {
+            0,
+            (FAIXAS[0][1] - FAIXAS[0][0]) * ALIQUOTAS[0],
+            (FAIXAS[0][1] - FAIXAS[0][0]) * ALIQUOTAS[0] + (FAIXAS[1][1] - FAIXAS[1][0]) * ALIQUOTAS[1],
+            (FAIXAS[0][1] - FAIXAS[0][0]) * ALIQUOTAS[0] + (FAIXAS[1][1] - FAIXAS[1][0]) * ALIQUOTAS[1] + (FAIXAS[2][1] - FAIXAS[2][0]) * ALIQUOTAS[2],
+    };
+
+    private final List<Despesa> gastos;
+
+    public DeclaracaoCompleta(int id, double ganhoTributavel, double valorJaPago) {
+        super(id, ganhoTributavel, valorJaPago);
+
+        gastos = new ArrayList<>();
+    }
+
+    @Override
+    protected double valorImposto() {
+        double baseDeCalculo = getGanhoTributavel() - totalDespesasDedutiveis();
+
+        if (baseDeCalculo < LIMITE_ISENCAO) {
+            return 0;
+        }
+
+        for (int i = 0; i < FAIXAS.length - 1; i++) {
+            if (baseDeCalculo < FAIXAS[i + 1][0]) {
+                return (baseDeCalculo - FAIXAS[i][0]) * ALIQUOTAS[i] + ACUMULADO[i];
+            }
+        }
+
+        return (baseDeCalculo - FAIXAS[3][0]) * ALIQUOTAS[3] + ACUMULADO[3];
+    }
+
+    public void adicionarDespesa(Despesa d) {
+        if (d == null) {
+            throw new IllegalArgumentException("Despesa não pode ser nula");
+        }
+
+        if (gastos.contains(d)) {
+            throw new IllegalStateException("A despesa já foi cadastrada");
+        }
+
+        gastos.add(d);
+    }
+
+    public void removerDespesa(Despesa d) {
+        if (d == null) {
+            throw new IllegalArgumentException("Despesa não pode ser nula");
+        }
+
+        if (!gastos.contains(d)) {
+            throw new IllegalStateException("A despesa não foi cadastrada");
+        }
+
+        gastos.remove(d);
+    }
+
+    private double totalDespesasDedutiveis() {
+        return gastos.stream()
+                .mapToDouble(d -> {
+                    if (d instanceof DespesaSaude) {
+                        return Math.min(d.getValor(), DespesaSaude.DEDUCAO_MAX);
+                    }
+                    return Math.min(d.getValor(), DespesaEducacao.DEDUCAO_MAX);
+                })
+                .sum();
+    }
+}
