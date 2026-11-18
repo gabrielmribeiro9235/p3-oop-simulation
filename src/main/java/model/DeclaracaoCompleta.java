@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.RecursiveTask;
 
 public class DeclaracaoCompleta extends Declaracao {
     private final static double LIMITE_ISENCAO = 22_847.88;
@@ -86,5 +85,30 @@ public class DeclaracaoCompleta extends Declaracao {
                 .filter(d -> d instanceof DespesaEducacao)
                 .mapToDouble(Despesa::getValor)
                 .sum();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(super.toString());
+
+        builder.append("\n\nDespesas com educação:\n");
+        gastos.stream()
+                .filter(d -> d instanceof DespesaEducacao)
+                .forEach(d -> builder.append("    ").append(d).append("\n"));
+        builder.append(String.format("Total dedutível com educação: R$ %.2f",
+                Math.min(somaDespesasEducacao(), DespesaEducacao.DEDUCAO_MAX)));
+
+        builder.append("\n\nDespesas com saúde:\n");
+        gastos.stream()
+                .filter(d -> d instanceof DespesaSaude)
+                .forEach(d -> builder.append("    ").append(d).append("\n"));
+        builder.append(String.format("Total dedutível com saúde: R$ %.2f",
+                Math.min(somaDespesasSaude(), DespesaSaude.DEDUCAO_MAX)));
+
+        builder.append(String.format("\n\nValor do imposto: R$ %.2f\n", valorImposto()))
+                .append(String.format("Total deduzido  : R$ %.2f", totalDespesasDedutiveis()))
+                .append(String.format("Valor a pagar   : R$ %.2f", valorAPagar()));
+
+        return builder.toString();
     }
 }
