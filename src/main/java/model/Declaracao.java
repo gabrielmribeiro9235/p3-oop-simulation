@@ -45,10 +45,10 @@ public abstract class Declaracao {
 
     @Override
     public String toString() {
-        return "Declaracao{" +
-                "id=" + id +
-                ", ganhoTributavel=" + ganhoTributavel +
-                ", valorJaPago=" + valorJaPago +
-                '}';
+        return String.format("""
+                ID              : %d
+                Ganho tributável: R$ %.2f
+                Valor já pagao  : R$ %.2f
+                """, id, ganhoTributavel, valorJaPago);
     }
 }
