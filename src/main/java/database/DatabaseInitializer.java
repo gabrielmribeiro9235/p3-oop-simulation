@@ -22,8 +22,8 @@ public class DatabaseInitializer {
         String sql = """
                 CREATE TABLE IF NOT EXISTS declaracao (
                     id                  INTEGER PRIMARY KEY,
-                    ganho_tributavel    REAL NOT NULL CHECK(ganho_tributavel > 0),
-                    valor_ja_pago       REAL NOT NULL  CHECK(valor_ja_pago > 0)
+                    ganho_tributavel    REAL NOT NULL CHECK(ganho_tributavel >= 0),
+                    valor_ja_pago       REAL NOT NULL  CHECK(valor_ja_pago >= 0)
                 );
                 """;
 
@@ -39,7 +39,7 @@ public class DatabaseInitializer {
                 CREATE TABLE IF NOT EXISTS despesa_saude (
                     id                  INTEGER PRIMARY KEY,
                     descricao           TEXT,
-                    valor               REAL NOT NULL CHECK(valor > 0),
+                    valor               REAL NOT NULL CHECK(valor >= 0),
                     cnpj                TEXT NOT NULL,
                     registro_conselho   TEXT NOT NULL,
                     id_declaracao       INTEGER NOT NULL,
@@ -60,7 +60,7 @@ public class DatabaseInitializer {
                 CREATE TABLE IF NOT EXISTS despesa_educacao (
                     id                  INTEGER PRIMARY KEY,
                     descricao           TEXT,
-                    valor               REAL NOT NULL CHECK(valor > 0),
+                    valor               REAL NOT NULL CHECK(valor >= 0),
                     cnpj                TEXT NOT NULL,
                     nome_instituicao    TEXT NOT NULL,
                     id_declaracao       INTEGER NOT NULL,
