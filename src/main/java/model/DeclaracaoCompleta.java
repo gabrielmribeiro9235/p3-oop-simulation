@@ -106,7 +106,7 @@ public class DeclaracaoCompleta extends Declaracao {
                 Math.min(somaDespesasSaude(), DespesaSaude.DEDUCAO_MAX)));
 
         builder.append(String.format("\n\nValor do imposto: R$ %.2f\n", valorImposto()))
-                .append(String.format("Total deduzido  : R$ %.2f", totalDespesasDedutiveis()))
+                .append(String.format("Total deduzido  : R$ %.2f\n", totalDespesasDedutiveis()))
                 .append(String.format("Valor a pagar   : R$ %.2f", valorAPagar()));
 
         return builder.toString();

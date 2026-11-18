@@ -37,13 +37,13 @@ public class RelatorioSimulacaoService {
                 completa.adicionarDespesa(DespesaEducacaoMapper.fromDto(d))
         );
 
-        StringBuilder builder = new StringBuilder("Declaração Simplificada\n\n");
-        builder.append(simplificada)
+        StringBuilder builder = new StringBuilder("-".repeat(100));
+        builder.append("\nDeclaração Completa\n\n").append(completa)
                 .append("\n")
                 .repeat("-", 100)
                 .append("\n")
-                .append("Delcaração Completa\n\n")
-                .append(completa)
+                .append("Delcaração Simplificada\n\n")
+                .append(simplificada)
                 .append("\n")
                 .repeat("-", 100)
                 .append("\n");
