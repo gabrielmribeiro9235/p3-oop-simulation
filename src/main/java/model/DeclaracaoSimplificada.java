@@ -12,4 +12,11 @@ public class DeclaracaoSimplificada extends Declaracao {
     public double valorImposto() {
         return Math.max((getGanhoTributavel() - LIMITE_ISENCAO) * ALIQUOTA, 0);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format("\n\nValor do imposto: R$ %.2f\n", valorImposto()) +
+                String.format("Valor a pagar   : R$ %.2f", valorAPagar());
+    }
 }
