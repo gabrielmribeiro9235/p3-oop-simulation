@@ -9,7 +9,7 @@ public class DeclaracaoSimplificada extends Declaracao {
     }
 
     @Override
-    protected double valorImposto() {
+    public double valorImposto() {
         return Math.max((getGanhoTributavel() - LIMITE_ISENCAO) * ALIQUOTA, 0);
     }
 }

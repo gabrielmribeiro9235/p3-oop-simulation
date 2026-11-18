@@ -29,7 +29,7 @@ public class DeclaracaoCompleta extends Declaracao {
     }
 
     @Override
-    protected double valorImposto() {
+    public double valorImposto() {
         double baseDeCalculo = getGanhoTributavel() - totalDespesasDedutiveis();
 
         if (baseDeCalculo < LIMITE_ISENCAO) {
