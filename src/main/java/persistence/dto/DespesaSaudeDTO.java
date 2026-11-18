@@ -1,10 +1,10 @@
 package persistence.dto;
 
-public record DespesaDTO (
+public record DespesaSaudeDTO(
         int id,
         String descricao,
         double valor,
         String cnpj,
-        String especificacao,
+        String registroConselho,
         int idDeclaracao
 ) {}
