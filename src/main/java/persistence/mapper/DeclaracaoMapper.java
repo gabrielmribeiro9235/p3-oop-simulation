@@ -10,13 +10,13 @@ import java.util.Objects;
 public class DeclaracaoMapper {
     private DeclaracaoMapper() {}
 
-    public static Declaracao simplificadaFromDto(DeclaracaoDTO dto) {
+    public static DeclaracaoSimplificada simplificadaFromDto(DeclaracaoDTO dto) {
         Objects.requireNonNull(dto, "dto não pode ser nulo");
 
         return new DeclaracaoSimplificada(dto.id(), dto.ganhoTributavel(), dto.valorJaPago());
     }
 
-    public static Declaracao completaFromDto(DeclaracaoDTO dto) {
+    public static DeclaracaoCompleta completaFromDto(DeclaracaoDTO dto) {
         Objects.requireNonNull(dto, "dto não pode ser nulo");
 
         return new DeclaracaoCompleta(dto.id(), dto.ganhoTributavel(), dto.valorJaPago());
