@@ -44,6 +44,7 @@ public class DatabaseInitializer {
                     registro_conselho   TEXT NOT NULL,
                     id_declaracao       INTEGER NOT NULL,
                     FOREIGN KEY(id_declaracao) REFERENCES declaracao(id)
+                        ON DELETE CASCADE
                 );
                 """;
 
@@ -64,6 +65,7 @@ public class DatabaseInitializer {
                     nome_instituicao    TEXT NOT NULL,
                     id_declaracao       INTEGER NOT NULL,
                     FOREIGN KEY(id_declaracao) REFERENCES declaracao(id)
+                        ON DELETE CASCADE
                 );
                 """;
 
