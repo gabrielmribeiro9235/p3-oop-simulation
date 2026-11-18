@@ -52,10 +52,10 @@ public class RelatorioSimulacaoService {
             builder.append("Em qualquer modelo de declaração o valor do imposto será igual\n");
         } else if (simplificada.valorAPagar() < completa.valorAPagar()) {
             builder.append("Vale mais a pena fazer a declaração simplificada\n")
-                    .append(String.format("\nEconomia de R$ %.2f\n",  simplificada.valorAPagar()));
+                    .append(String.format("\nEconomia de R$ %.2f\n", completa.valorAPagar() - simplificada.valorAPagar()));
         } else {
             builder.append("Vale mais a pena fazer a declaração completa\n")
-                    .append(String.format("\nEconomia de R$ %.2f\n",  completa.valorAPagar()));
+                    .append(String.format("\nEconomia de R$ %.2f\n", simplificada.valorAPagar() - completa.valorAPagar()));
         }
 
         return builder.toString();
