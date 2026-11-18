@@ -16,8 +16,6 @@ public class DespesaSaude extends Despesa {
 
     @Override
     public String toString() {
-        return "DespesaSaude{" +
-                "registroConselho='" + registroConselho + '\'' +
-                "} " + super.toString();
+        return super.toString() + " | registro conselho: " + registroConselho;
     }
 }

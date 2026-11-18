@@ -45,11 +45,8 @@ public abstract class Despesa {
 
     @Override
     public String toString() {
-        return "Despesa{" +
-                "id=" + id +
-                ", descricao='" + descricao + '\'' +
-                ", valor=" + valor +
-                ", cnpj='" + cnpj + '\'' +
-                '}';
+        return String.format(
+                "ID: %2d | descrição: %s | valor: R$ %.2f | CNPJ: %s",
+                id, descricao, valor, cnpj);
     }
 }
