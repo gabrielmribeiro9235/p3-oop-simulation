@@ -1,12 +1,12 @@
 package persistence.dao;
 
-import model.Despesa;
+import persistence.dto.DespesaDTO;
 import model.TipoDespesa;
 
 import java.util.List;
 
 public interface DespesaDAO {
-    void adicinarDespesa(TipoDespesa tipo, Despesa despesa, int idDeclaraco);
-    void removerDespesa(TipoDespesa tipo, Despesa despesa);
-    List<Despesa> findAllByIdDeclaracao(int idDeclaracao);
+    void adicinarDespesa(TipoDespesa tipo, DespesaDTO despesaDTO);
+    void removerDespesa(TipoDespesa tipo, DespesaDTO despesaDTO);
+    List<DespesaDTO> findAllByIdDeclaracao(int idDeclaracao);
 }
