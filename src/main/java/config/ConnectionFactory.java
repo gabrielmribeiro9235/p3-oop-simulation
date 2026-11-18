@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    private final static String URL = "jdbc:declaracao.db";
+    private final static String URL = "jdbc:sqlite:declaracao.db";
     private static Connection connection;
 
     private ConnectionFactory() {}
