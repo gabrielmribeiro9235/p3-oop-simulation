@@ -1,13 +1,12 @@
 package persistence.dao;
 
-import model.Declaracao;
+import persistence.dto.DeclaracaoDTO;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface DeclaracaoDAO {
-    void save(Declaracao declaracao);
-    void update(Declaracao declaracao);
-    void delete(Declaracao declaracao);
-    Optional<Declaracao> findById(int id);
+    void save(DeclaracaoDTO declaracaoDto);
+    void update(DeclaracaoDTO declaracaoDto);
+    void delete(DeclaracaoDTO declaracaoDto);
+    Optional<DeclaracaoDTO> findById(int id);
 }
