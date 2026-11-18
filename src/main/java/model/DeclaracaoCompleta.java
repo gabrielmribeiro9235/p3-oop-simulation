@@ -70,13 +70,21 @@ public class DeclaracaoCompleta extends Declaracao {
     }
 
     private double totalDespesasDedutiveis() {
+        return Math.min(somaDespesasSaude(), DespesaSaude.DEDUCAO_MAX)
+                + Math.min(somaDespesasEducacao(), DespesaEducacao.DEDUCAO_MAX);
+    }
+
+    private double somaDespesasSaude() {
         return gastos.stream()
-                .mapToDouble(d -> {
-                    if (d instanceof DespesaSaude) {
-                        return Math.min(d.getValor(), DespesaSaude.DEDUCAO_MAX);
-                    }
-                    return Math.min(d.getValor(), DespesaEducacao.DEDUCAO_MAX);
-                })
+                .filter(d -> d instanceof DespesaSaude)
+                .mapToDouble(Despesa::getValor)
+                .sum();
+    }
+
+    private double somaDespesasEducacao() {
+        return gastos.stream()
+                .filter(d -> d instanceof DespesaEducacao)
+                .mapToDouble(Despesa::getValor)
                 .sum();
     }
 }
